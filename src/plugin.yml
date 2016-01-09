@@ -1,0 +1,30 @@
+ name: OpVerify
+ version: 2.0.0
+ description: This is the plugin.yml for OpVerify
+ author: avocateur
+ authors: [DUFC_Liam] 
+ website: http://dev.bukkit.org/bukkit-plugins/op-verify/
+ 
+ main: OpVerify.main
+ database: false
+ depend: []
+ 
+ commands:
+   OpVerify:
+     description: This is the main command for OpVerify.
+     aliases: [ov]
+     permission: opverify.verify
+     usage: Syntax error! Simply type "/OpVerify" to get information.
+ 
+ permissions:
+   opverify.*:
+     description: Gives access to all OpVerify commands
+     default: op
+     children:
+       opverify.verify: true
+       opverify.use: true
+   opverify.use:
+     description: Gives access to all OpVerify commands
+     default: op
+     children:
+       opverify.verify: true

@@ -1,2 +1,2 @@
-# Config for OpVerify
-# NOT USED AT THE MOMENT
+# Config for OpVerify (You change the server wide password here)
+    password: OpVerify

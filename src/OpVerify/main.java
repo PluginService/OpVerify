@@ -7,6 +7,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.permissions.Permission;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -19,7 +20,8 @@ public class main
   @Override
   public void onEnable()
   {
-    getConfig().options().copyDefaults(true);
+    this.getConfig().addDefault("password", "password123");
+    this.getConfig().options().copyDefaults(true);
     saveConfig();
     System.out.println("[OpVerify] Do not use on FreeOP servers.");
     System.out.println("[OpVerify] Successfully enabled.");
@@ -30,9 +32,24 @@ public class main
   }
   
   @Override
-  public void onDisable() {}
+  public void onDisable() 
+  {
+      saveConfig();
+  }
   
   
+  String password = getConfig().getString("password");
+  @EventHandler
+  public void onPlayerJoinEvent(PlayerJoinEvent e)
+  {
+      Player p = e.getPlayer();
+      
+      if (p.isOp() && p.hasPermission("OpVerify.verify"))
+      {
+          p.sendMessage("Welcome back " + p.getName() + " please follow the instructions below!");
+          Bukkit.dispatchCommand(p, "OpVerify");
+      }
+  }
   
   @EventHandler
   public void AsyncChatEvent(AsyncPlayerChatEvent e)
@@ -44,7 +61,7 @@ public class main
           p.setOp(false);
           return;
       }
-      if (!msg.equalsIgnoreCase("OpVerify"));
+      if (!msg.equalsIgnoreCase(password));
       e.setCancelled(true);
       if (p.isOp() && (p.hasPermission("OpVerify.verify")))
       {
@@ -53,7 +70,6 @@ public class main
           p.kickPlayer(ChatColor.RED + "You have entered: " + ChatColor.YELLOW + msg + ChatColor.RED + " and it was incorrect you are an imposer.");
       }
   }
-  
   @Override
   public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
   {

@@ -1,5 +1,5 @@
  name: OpVerify
- version: 2.0.0
+ version: 2.1.0
  description: This is the plugin.yml for OpVerify
  author: avocateur
  authors: [DUFC_Liam] 
@@ -18,13 +18,11 @@
  
  permissions:
    opverify.*:
-     description: Gives access to all OpVerify commands
+     description: Gives access to all OpVerify commands we will create
      default: op
      children:
        opverify.verify: true
-       opverify.use: true
-   opverify.use:
+       
+   opverify.verify:
      description: Gives access to all OpVerify commands
      default: op
-     children:
-       opverify.verify: true
